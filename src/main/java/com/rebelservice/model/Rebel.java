@@ -1,5 +1,6 @@
 package com.rebelservice.model;
 
+import com.rebelservice.controller.dto.request.RebelRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,5 +31,14 @@ public class Rebel {
 
     @Embedded
     private Location location;
+
+    public static Rebel fromRequest(RebelRequest request) {
+        return Rebel.builder()
+                .age(request.age())
+                .gender(request.gender())
+                .location(Location.fromRequest(request.location()))
+                .name(request.name())
+                .build();
+    }
 
 }
