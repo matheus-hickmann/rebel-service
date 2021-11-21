@@ -25,6 +25,8 @@ public class Rebel {
 
     private String name;
     private Integer age;
+    private int votes;
+    private boolean isTraitor;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
