@@ -1,5 +1,8 @@
 package com.rebelservice.controller;
 
+import com.rebelservice.controller.dto.request.LocationRequest;
+import com.rebelservice.controller.dto.request.RebelRequest;
+import com.rebelservice.controller.dto.response.RebelResponse;
 import com.rebelservice.model.Location;
 import com.rebelservice.model.Rebel;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +16,17 @@ import java.util.UUID;
 public class RebelController {
 
     @GetMapping
-    public Flux<Rebel> getRebels(){
+    public Flux<RebelResponse> getRebels(){
         return Flux.empty();
     }
 
     @GetMapping("/{id}")
-    public Mono<Rebel> getById(@PathVariable UUID id) {
+    public Mono<RebelResponse> getById(@PathVariable UUID id) {
         return Mono.empty();
     }
 
     @PostMapping
-    public Mono<Rebel> createRebel(Rebel rebelRequest) {
+    public Mono<RebelResponse> createRebel(RebelRequest rebelRequest) {
         return Mono.empty();
     }
 
@@ -38,7 +41,7 @@ public class RebelController {
     }
 
     @PatchMapping("/{id}/location")
-    public Mono setLocation(@PathVariable UUID id, @RequestBody Location location) {
+    public Mono setLocation(@PathVariable UUID id, @RequestBody LocationRequest location) {
         return Mono.empty();
     }
     
