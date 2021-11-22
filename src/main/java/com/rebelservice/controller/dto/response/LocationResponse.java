@@ -7,7 +7,7 @@ public record LocationResponse(
         Double longitude,
         String galaxyName
 ) {
-    public LocationResponse fromEntity(Location location) {
+    public static LocationResponse fromEntity(Location location) {
         return new LocationResponse(
                 location.getLatitude(),
                 location.getLongitude(),

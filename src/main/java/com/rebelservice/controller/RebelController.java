@@ -3,8 +3,9 @@ package com.rebelservice.controller;
 import com.rebelservice.controller.dto.request.LocationRequest;
 import com.rebelservice.controller.dto.request.RebelRequest;
 import com.rebelservice.controller.dto.response.RebelResponse;
-import com.rebelservice.model.Location;
 import com.rebelservice.model.Rebel;
+import com.rebelservice.service.rebel.GetRebelByIdService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,6 +16,14 @@ import java.util.UUID;
 @RequestMapping("/rebels")
 public class RebelController {
 
+    private final GetRebelByIdService getRebelByIdService;
+
+    @Autowired
+    public RebelController(
+            GetRebelByIdService getRebelByIdService) {
+        this.getRebelByIdService = getRebelByIdService;
+    }
+
     @GetMapping
     public Flux<RebelResponse> getRebels(){
         return Flux.empty();
@@ -22,7 +31,10 @@ public class RebelController {
 
     @GetMapping("/{id}")
     public Mono<RebelResponse> getById(@PathVariable UUID id) {
-        return Mono.empty();
+        Rebel rebel = getRebelByIdService.execute(id);
+        return Mono.just(
+            RebelResponse.fromEntity(rebel)
+        );
     }
 
     @PostMapping
