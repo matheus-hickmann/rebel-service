@@ -4,6 +4,7 @@ import com.rebelservice.controller.dto.request.LocationRequest;
 import com.rebelservice.controller.dto.request.RebelRequest;
 import com.rebelservice.controller.dto.response.RebelResponse;
 import com.rebelservice.model.Rebel;
+import com.rebelservice.service.rebel.GetAllRebelsService;
 import com.rebelservice.service.rebel.GetRebelByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +18,24 @@ import java.util.UUID;
 public class RebelController {
 
     private final GetRebelByIdService getRebelByIdService;
+    private final GetAllRebelsService getAllRebelsService;
 
     @Autowired
     public RebelController(
-            GetRebelByIdService getRebelByIdService) {
+            GetRebelByIdService getRebelByIdService,
+            GetAllRebelsService getAllRebelsService
+    ) {
         this.getRebelByIdService = getRebelByIdService;
+        this.getAllRebelsService = getAllRebelsService;
     }
 
     @GetMapping
     public Flux<RebelResponse> getRebels(){
-        return Flux.empty();
+        return Flux.fromIterable(
+                getAllRebelsService.execute().stream()
+                        .map(RebelResponse::fromEntity)
+                        .toList()
+        );
     }
 
     @GetMapping("/{id}")
